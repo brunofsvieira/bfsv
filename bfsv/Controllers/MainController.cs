@@ -111,7 +111,7 @@ namespace Backend.Challenge.Controllers
 
             myCommentRepository.SetCreatedAndModified(getComment != null, comment);
 
-            await myCommentRepository.InsertOrUpdate(comment);
+            await myCommentRepository.Insert(comment);
 
             return CreatedAtAction(nameof(GetComment), myMapper.Map<CommentResponse>(comment));
         }

@@ -62,10 +62,10 @@ namespace bfsv.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Insert or update a document of type T.
+        /// Insert a document of type T.
         /// </summary>
         /// <param name="element">The element.</param>
-        public async Task InsertOrUpdate(T element)
+        public async Task Insert(T element)
         {
             using (IAsyncDocumentSession session = myContext.Store.OpenAsyncSession())
             {

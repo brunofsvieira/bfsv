@@ -37,7 +37,7 @@ namespace Backend.Challenge.Controllers
 
             myEntityRepository.SetCreatedAndModified(getEntity != null, entity);
 
-            await myEntityRepository.InsertOrUpdate(entity);
+            await myEntityRepository.Insert(entity);
 
             return CreatedAtAction(nameof(GetEntity), myMapper.Map<EntityResponse>(entity));
         }

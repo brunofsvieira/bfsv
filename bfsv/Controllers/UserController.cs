@@ -41,7 +41,7 @@ namespace Backend.Challenge.Controllers
 
             myUserRepository.SetCreatedAndModified(getUser != null, user);
 
-            await myUserRepository.InsertOrUpdate(user);
+            await myUserRepository.Insert(user);
 
             return CreatedAtAction(nameof(GetUser), myMapper.Map<UserResponse>(user));
         }
