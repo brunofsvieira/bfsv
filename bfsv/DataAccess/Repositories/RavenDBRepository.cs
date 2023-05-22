@@ -144,7 +144,7 @@ namespace bfsv.DataAccess.Repositories
                         ViewDate = DateTime.UtcNow,
                     };
 
-                    comment.UsersViews = comment.UsersViews.Any() ? comment.UsersViews.Append(view).ToList() : new List<UserView> { view };
+                    comment.UsersViews = comment.UsersViews != null && comment.UsersViews.Any() ? comment.UsersViews.Append(view).ToList() : new List<UserView> { view };
 
                     await session.SaveChangesAsync();
                 }
@@ -170,7 +170,6 @@ namespace bfsv.DataAccess.Repositories
             {
                 baseEntity.InsertDate = DateTime.UtcNow;
                 baseEntity.UpdateDate = DateTime.UtcNow;
-                //baseEntity.Id = element  != null.GetType().ToString()/;
             }
         }
 

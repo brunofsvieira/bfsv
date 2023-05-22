@@ -47,11 +47,11 @@ namespace Backend.Challenge.Controllers
         /// </summary>
         /// <param name="id">Comment id</param>
         /// <returns>A comment.</returns>
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(typeof(CommentResponse), 200)]
-        public async Task<ActionResult<CommentResponse>> GetComment(int id)
+        public async Task<ActionResult<CommentResponse>> GetComment(string id)
         {
-            return myMapper.Map<CommentResponse>(await myCommentRepository.Get(id.ToString()));
+            return myMapper.Map<CommentResponse>(await myCommentRepository.Get(id));
         }
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace Backend.Challenge.Controllers
         /// <returns>A CommentWithTotalResponse. Total comments and List of comments.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(CommentWithTotalResponse), 200)]
-        public async Task<ActionResult<CommentWithTotalResponse>> GetCommentsByEntity(int pageNumber, int pageSize, int entityId)
+        public async Task<ActionResult<CommentWithTotalResponse>> GetCommentsByEntity(int pageNumber, int pageSize, string entityId)
         {
-            var getComments = await myCommentRepository.GetCommentsByEntity(pageNumber, pageSize, entityId.ToString());
+            var getComments = await myCommentRepository.GetCommentsByEntity(pageNumber, pageSize, entityId);
 
             return new CommentWithTotalResponse
             {
@@ -82,10 +82,10 @@ namespace Backend.Challenge.Controllers
         /// <returns>A CommentWithTotalResponse. Total comments unseen and List of comments unseen.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(CommentWithTotalResponse), 200)]
-        public async Task<ActionResult<CommentWithTotalResponse>> GetUnseenComments(int userId, int entityId)
+        public async Task<ActionResult<CommentWithTotalResponse>> GetUnseenComments(string userId, string entityId)
         {
 
-            var getComments = await myCommentRepository.GetUnseenComments(userId.ToString(), entityId.ToString());
+            var getComments = await myCommentRepository.GetUnseenComments(userId, entityId);
 
             return new CommentWithTotalResponse
             {
@@ -105,7 +105,7 @@ namespace Backend.Challenge.Controllers
         {
             var comment = myMapper.Map<Comment>(commentDTO);
 
-            var getComment = await myCommentRepository.Get(comment.Id.ToString());
+            var getComment = await myCommentRepository.Get(comment.Id);
 
             comment.InsertDate = getComment != null ? getComment.InsertDate : comment.InsertDate;
 
@@ -124,9 +124,9 @@ namespace Backend.Challenge.Controllers
         /// <returns>A CommentWithTotalResponse. Total comments unseen and List of comments unseen.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(CommentResponse), 200)]
-        public async Task<ActionResult<CommentResponse>> UpdateUnseenComment(int userId, int commentId)
+        public async Task<ActionResult<CommentResponse>> UpdateUnseenComment(string userId, string commentId)
         {
-            return CreatedAtAction(nameof(GetComment), myMapper.Map<CommentResponse>(await myCommentRepository.UpdateUnseenComment(userId.ToString(), commentId.ToString())));
+            return CreatedAtAction(nameof(GetComment), myMapper.Map<CommentResponse>(await myCommentRepository.UpdateUnseenComment(userId, commentId)));
         }
     }
 }

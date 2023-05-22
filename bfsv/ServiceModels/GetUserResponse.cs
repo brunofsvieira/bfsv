@@ -5,6 +5,6 @@ namespace bfsv.ServiceModels
 {
     public class GetUserResponse
     {
-        public Dictionary<int, UserResponse> Users { get; set; }
+        public Dictionary<string, UserResponse> Users { get; set; }
     }
 }

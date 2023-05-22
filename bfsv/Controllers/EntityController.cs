@@ -31,7 +31,7 @@ namespace Backend.Challenge.Controllers
         {
             var entity = myMapper.Map<Entity>(entityDTO);
 
-            var getEntity = await myEntityRepository.Get(entity.Id.ToString());
+            var getEntity = await myEntityRepository.Get(entity.Id);
 
             entity.InsertDate = getEntity != null ? getEntity.InsertDate : entity.InsertDate;
 
@@ -42,11 +42,11 @@ namespace Backend.Challenge.Controllers
             return CreatedAtAction(nameof(GetEntity), myMapper.Map<EntityResponse>(entity));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(typeof(EntityResponse), 200)]
-        public async Task<ActionResult<EntityResponse>> GetEntity(int id)
+        public async Task<ActionResult<EntityResponse>> GetEntity(string id)
         {
-            return myMapper.Map<EntityResponse>(await myEntityRepository.Get(id.ToString()));
+            return myMapper.Map<EntityResponse>(await myEntityRepository.Get(id));
         }
     }
 }

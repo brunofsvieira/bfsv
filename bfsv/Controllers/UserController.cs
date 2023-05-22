@@ -35,7 +35,7 @@ namespace Backend.Challenge.Controllers
         {
             var user = myMapper.Map<User>(userDTO);
 
-            var getUser = await myUserRepository.Get(user.Id.ToString());
+            var getUser = await myUserRepository.Get(user.Id);
 
             user.InsertDate = getUser != null ? getUser.InsertDate : user.InsertDate;
 
@@ -46,24 +46,24 @@ namespace Backend.Challenge.Controllers
             return CreatedAtAction(nameof(GetUser), myMapper.Map<UserResponse>(user));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(typeof(UserResponse), 200)]
-        public async Task<ActionResult<UserResponse>> GetUser(int id)
+        public async Task<ActionResult<UserResponse>> GetUser(string id)
         {
-            return myMapper.Map<UserResponse>(await myUserRepository.Get(id.ToString()));
+            return myMapper.Map<UserResponse>(await myUserRepository.Get(id));
         }
 
         // This action responds to the url /user/users/42 and /user/users?id=4&id=10
         [HttpGet("{id}")]
         [HttpGet("")]
         [ProducesResponseType(typeof(GetUserResponse), 200)]
-        public async Task<ActionResult<GetUserResponse>> Users([FromQuery(Name = "id")] int[] id)
+        public async Task<ActionResult<GetUserResponse>> Users([FromQuery(Name = "id")] string[] id)
         {
-            var users = await myUserRepository.GetMultipleIds(Array.ConvertAll(id, x => x.ToString()));
+            var users = await myUserRepository.GetMultipleIds(id);
 
             var response = new GetUserResponse();
 
-            response.Users = users.ToDictionary(p => int.TryParse(p.Key, out var myKey) ? myKey : 0, p => myMapper.Map<UserResponse>(p.Value));
+            response.Users = users.ToDictionary(x =>  x.Key, x => myMapper.Map<UserResponse>(x.Value));
 
             return response;
         }
