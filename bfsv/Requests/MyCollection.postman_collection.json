@@ -1,0 +1,432 @@
+{
+	"info": {
+		"_postman_id": "2e51c825-14fa-4f94-927f-a5f997ad199d",
+		"name": "MyCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "18673960",
+		"_collection_link": "https://ab-accountplans.postman.co/workspace/My-Workspace~fe701730-d575-46d4-8719-83646031a799/collection/18673960-2e51c825-14fa-4f94-927f-a5f997ad199d?action=share&creator=18673960&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"bruno\",\r\n    \"email\" : \"bruno.vieira@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/user/CreateOrUpdateUser"
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"bruno\",\r\n    \"email\" : \"bruno.vieira@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/user/CreateOrUpdateUser?id=users/1-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"CreateOrUpdateUser"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "users/1-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/user/GetUser?id=users/1-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"GetUser"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "users/1-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/user/GetUsers?pageNumber=1&pageSize=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"GetUsers"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/user/users?id=users/1-A&id=users/129-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "users/1-A"
+						},
+						{
+							"key": "id",
+							"value": "users/129-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Entity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"All\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/entity/CreateOrUpdateEntity"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Entity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"News\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/entity/CreateOrUpdateEntity?id=entities/1-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"entity",
+						"CreateOrUpdateEntity"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "entities/1-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Entity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/user/GetEntity?id=entities/1-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"GetEntity"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "entities/1-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Entities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/entity/GetEntities?pageNumber=1&pageSize=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"entity",
+						"GetEntities"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"AuthorId\": \"users/1-A\",\r\n    \"EntityId\": \"users/129-A\",\r\n    \"Title\": \"New Comment\",\r\n    \"Content\": \"Hello World!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/main/CreateOrUpdateComment"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"AuthorId\": \"users/1-A\",\r\n    \"EntityId\": \"entities/1-A\",\r\n    \"Title\": \"New Comment\",\r\n    \"Content\": \"Hello World!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/main/CreateOrUpdateComment?id=comments/1-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"main",
+						"CreateOrUpdateComment"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "comments/1-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/user/GetEntity?id=entities/1-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"GetEntity"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "entities/1-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comments By Entity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/main/GetCommentsByEntity?pageNumber=1&pageSize=4&entityId=entities/1-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"main",
+						"GetCommentsByEntity"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "4"
+						},
+						{
+							"key": "entityId",
+							"value": "entities/1-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Unseen Comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/main/GetUnseenComments?userId=2&entityId=entities/1-A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"main",
+						"GetUnseenComments"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "2"
+						},
+						{
+							"key": "entityId",
+							"value": "entities/1-A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Unseen Comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/main/UpdateUnseenComment?userId=3&commentId=6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"main",
+						"UpdateUnseenComment"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "3"
+						},
+						{
+							"key": "commentId",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
