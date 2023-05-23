@@ -44,12 +44,20 @@ namespace Backend.Challenge.Controllers
         {
             var user = myMapper.Map<User>(userDTO);
 
-            var getUser = !string.IsNullOrEmpty(Id) ? await myUserRepository.Get(Id) : null;
+            if (!string.IsNullOrEmpty(Id))
+            {
+                var getUser = await myUserRepository.Get(Id);
 
-            user.InsertDate = getUser != null ? getUser.InsertDate : user.InsertDate;
-            user.Id = getUser != null ? getUser.Id : user.Id;
+                if (getUser == null)
+                {
+                    return NotFound();
+                }
 
-            myUserRepository.SetCreatedAndModified(getUser != null, user);
+                user.InsertDate = getUser != null ? getUser.InsertDate : user.InsertDate;
+                user.Id = getUser != null ? getUser.Id : user.Id;
+            }
+
+            myUserRepository.SetCreatedAndModified(!string.IsNullOrEmpty(Id), user);
 
             await myUserRepository.InsertOrUpdate(user);
 

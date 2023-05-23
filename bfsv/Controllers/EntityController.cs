@@ -40,12 +40,20 @@ namespace Backend.Challenge.Controllers
         {
             var entity = myMapper.Map<Entity>(entityDTO);
 
-            var getEntity = !string.IsNullOrEmpty(Id) ? await myEntityRepository.Get(Id) : null;
+            if (!string.IsNullOrEmpty(Id))
+            {
+                var getEntity = await myEntityRepository.Get(Id);
 
-            entity.InsertDate = getEntity != null ? getEntity.InsertDate : entity.InsertDate;
-            entity.Id = getEntity != null ? getEntity.Id : entity.Id;
+                if(getEntity == null)
+                {
+                    return NotFound();
+                }
 
-            myEntityRepository.SetCreatedAndModified(getEntity != null, entity);
+                entity.InsertDate = getEntity != null ? getEntity.InsertDate : entity.InsertDate;
+                entity.Id = getEntity != null ? getEntity.Id : entity.Id;
+            }
+
+            myEntityRepository.SetCreatedAndModified(!string.IsNullOrEmpty(Id), entity);
 
             await myEntityRepository.InsertOrUpdate(entity);
 

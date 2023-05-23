@@ -109,12 +109,20 @@ namespace Backend.Challenge.Controllers
         {
             var comment = myMapper.Map<Comment>(commentDTO);
 
-            var getComment = !string.IsNullOrEmpty(Id) ? await myCommentRepository.Get(Id) : null;
+            if (!string.IsNullOrEmpty(Id))
+            {
+                var getComment = await myCommentRepository.Get(Id);
 
-            comment.InsertDate = getComment != null ? getComment.InsertDate : comment.InsertDate;
-            comment.Id = getComment != null ? getComment.Id : comment.Id;
+                if (getComment == null)
+                {
+                    return NotFound();
+                }
 
-            myCommentRepository.SetCreatedAndModified(getComment != null, comment);
+                comment.InsertDate = getComment != null ? getComment.InsertDate : comment.InsertDate;
+                comment.Id = getComment != null ? getComment.Id : comment.Id;
+            }
+
+            myCommentRepository.SetCreatedAndModified(!string.IsNullOrEmpty(Id), comment);
 
             await myCommentRepository.InsertOrUpdate(comment);
 
@@ -131,7 +139,14 @@ namespace Backend.Challenge.Controllers
         [ProducesResponseType(typeof(CommentResponse), 200)]
         public async Task<ActionResult<CommentResponse>> UpdateUnseenComment(string userId, string commentId)
         {
-            return CreatedAtAction(nameof(GetComment), myMapper.Map<CommentResponse>(await myCommentRepository.UpdateUnseenComment(userId, commentId)));
+            var comment = myMapper.Map<CommentResponse>(await myCommentRepository.UpdateUnseenComment(userId, commentId));
+
+            if(comment == null)
+            {
+                return NotFound();
+            }
+
+            return CreatedAtAction(nameof(GetComment), comment);
         }
     }
 }

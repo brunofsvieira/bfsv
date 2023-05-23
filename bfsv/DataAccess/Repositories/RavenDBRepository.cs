@@ -140,7 +140,7 @@ namespace bfsv.DataAccess.Repositories
             {
                 var comment = await session.LoadAsync<Comment>(commentId);
 
-                if (comment != null && comment.AuthorId != userId && (comment.UsersViews != null && !comment.UsersViews.Any(x => x.UserId == userId)) || comment.UsersViews == null)
+                if (comment != null && comment.AuthorId != userId && (comment.UsersViews != null && !comment.UsersViews.Any(x => x.UserId == userId) || comment.UsersViews == null))
                 {
                     var view = new UserView
                     {
