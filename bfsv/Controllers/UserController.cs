@@ -14,6 +14,9 @@ using Sparrow.Binary;
 
 namespace Backend.Challenge.Controllers
 {
+    /// <summary>
+    /// User controller.
+    /// </summary>
     [ApiController]
     [Route("user/[action]/")]
     [Produces("application/json")]
@@ -29,23 +32,35 @@ namespace Backend.Challenge.Controllers
             myMapper = mapper;
         }
 
+        /// <summary>
+        /// Create or update user.
+        /// </summary>
+        /// <param name="commentDTO">User dto (input).</param>
+        /// <param name="Id">The user Id.</param>
+        /// <returns>User inserted.</returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<UserResponse>> CreateUser(UserDto userDTO)
+        public async Task<ActionResult<UserResponse>> CreateOrUpdateUser(UserDto userDTO, string? Id)
         {
             var user = myMapper.Map<User>(userDTO);
 
-            var getUser = await myUserRepository.Get(user.Id);
+            var getUser = !string.IsNullOrEmpty(Id) ? await myUserRepository.Get(Id) : null;
 
             user.InsertDate = getUser != null ? getUser.InsertDate : user.InsertDate;
+            user.Id = getUser != null ? getUser.Id : user.Id;
 
             myUserRepository.SetCreatedAndModified(getUser != null, user);
 
-            await myUserRepository.Insert(user);
+            await myUserRepository.InsertOrUpdate(user);
 
             return CreatedAtAction(nameof(GetUser), myMapper.Map<UserResponse>(user));
         }
 
+        /// <summary>
+        /// Get a user.
+        /// </summary>
+        /// <param name="id">User id.</param>
+        /// <returns>A user.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(UserResponse), 200)]
         public async Task<ActionResult<UserResponse>> GetUser(string id)
@@ -53,7 +68,24 @@ namespace Backend.Challenge.Controllers
             return myMapper.Map<UserResponse>(await myUserRepository.Get(id));
         }
 
-        // This action responds to the url /user/users/42 and /user/users?id=4&id=10
+        /// <summary>
+        /// Get users.
+        /// </summary>
+        /// <param name="pageSize">Page size.</param>
+        /// <param name="pageNumber">Page number.</param>
+        /// <returns>A list of users.</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(UserResponse), 200)]
+        public async Task<ActionResult<List<UserResponse>>> GetUsers(int pageSize, int pageNumber)
+        {
+            return myMapper.Map<List<UserResponse>>(await myUserRepository.GetAll(pageSize, pageNumber));
+        }
+
+        /// <summary>
+        /// Get multiple users.
+        /// </summary>
+        /// <param name="id">Multiple users.</param>
+        /// <returns>A list of users.</returns>
         [HttpGet("{id}")]
         [HttpGet("")]
         [ProducesResponseType(typeof(GetUserResponse), 200)]

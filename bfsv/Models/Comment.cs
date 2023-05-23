@@ -1,5 +1,8 @@
 ﻿namespace bfsv.Models
 {
+    /// <summary>
+    /// The comment.
+    /// </summary>
     public class Comment : BaseEntity
     {
         public string AuthorId { get; set; }

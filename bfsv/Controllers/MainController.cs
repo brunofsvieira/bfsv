@@ -12,6 +12,9 @@ using System.Xml.Linq;
 
 namespace Backend.Challenge.Controllers
 {
+    /// <summary>
+    /// Main controller (Comment controller).
+    /// </summary>
     [ApiController]
     [Route("main/[action]/")]
     [Produces("application/json")]
@@ -45,7 +48,7 @@ namespace Backend.Challenge.Controllers
         /// <summary>
         /// Get a comment.
         /// </summary>
-        /// <param name="id">Comment id</param>
+        /// <param name="id">Comment id.</param>
         /// <returns>A comment.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(CommentResponse), 200)]
@@ -95,23 +98,25 @@ namespace Backend.Challenge.Controllers
         }
 
         /// <summary>
-        /// Create new comment.
+        /// Create or update comment.
         /// </summary>
-        /// <param name="commentDTO">comment dto (input).</param>
+        /// <param name="commentDTO">Comment dto (input).</param>
+        /// <param name="Id">The comment Id.</param>
         /// <returns>Comment inserted.</returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<CommentResponse>> CreateComment(CommentDto commentDTO)
+        public async Task<ActionResult<CommentResponse>> CreateOrUpdateComment(CommentDto commentDTO, string? Id)
         {
             var comment = myMapper.Map<Comment>(commentDTO);
 
-            var getComment = await myCommentRepository.Get(comment.Id);
+            var getComment = !string.IsNullOrEmpty(Id) ? await myCommentRepository.Get(Id) : null;
 
             comment.InsertDate = getComment != null ? getComment.InsertDate : comment.InsertDate;
+            comment.Id = getComment != null ? getComment.Id : comment.Id;
 
             myCommentRepository.SetCreatedAndModified(getComment != null, comment);
 
-            await myCommentRepository.Insert(comment);
+            await myCommentRepository.InsertOrUpdate(comment);
 
             return CreatedAtAction(nameof(GetComment), myMapper.Map<CommentResponse>(comment));
         }

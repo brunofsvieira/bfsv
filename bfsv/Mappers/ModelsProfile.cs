@@ -5,6 +5,9 @@ using bfsv.ServiceModels;
 
 namespace bfsv.Mappers
 {
+    /// <summary>
+    /// Map classes.
+    /// </summary>
     public class ModelsProfile : Profile
     {
         public ModelsProfile() 

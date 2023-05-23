@@ -1,5 +1,8 @@
 ﻿namespace bfsv.Models
 {
+    /// <summary>
+    /// Base entity.
+    /// </summary>
     public class BaseEntity
     {
         public string Id { get; set; }

@@ -10,7 +10,7 @@ namespace bfsv.DataAccess.Repositories
        
         Task<List<T>> GetAll(int pageSize, int pageNumber);
        
-        Task Insert(T element);
+        Task InsertOrUpdate(T element);
         
         Task<(int, List<Comment>)> GetCommentsByEntity(int pageNumber, int pageSize, string entityId);
         

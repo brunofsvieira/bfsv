@@ -9,6 +9,10 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace bfsv.DataAccess.Repositories
 {
+    /// <summary>
+    /// The Raven DB repository to create the connection to query and update database.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class RavenDBRepository<T> : IRavenDBRepository<T>
     {
         private readonly IRavenDBContext myContext;
@@ -65,7 +69,7 @@ namespace bfsv.DataAccess.Repositories
         /// Insert a document of type T.
         /// </summary>
         /// <param name="element">The element.</param>
-        public async Task Insert(T element)
+        public async Task InsertOrUpdate(T element)
         {
             using (IAsyncDocumentSession session = myContext.Store.OpenAsyncSession())
             {
@@ -165,6 +169,7 @@ namespace bfsv.DataAccess.Repositories
             {
                 baseEntity.InsertDate = baseEntity.InsertDate;
                 baseEntity.UpdateDate = DateTime.UtcNow;
+                baseEntity.Id = baseEntity.Id;
             }
             else
             {
